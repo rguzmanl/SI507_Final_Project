@@ -12,24 +12,24 @@ My project is a basic Flask web application that displays two tables, one with a
 ## What's in the project folder?
 These are the files that I have used/created so far.
 
-- advanced_expiry_caching.py
+- ** advanced_expiry_caching.py
   - Borrowed from Project 4. Caches scraped data from a website.
-- data_scraping.py
+- ** data_scraping.py
   - I created this file to handle the scraping process.
-- SI507project_tools.py
+- ** SI507project_tools.py
   - It contains some of the main requirements of the project. Flask routes and Class definitions.
-- SI507project_tests.py
+- ** SI507project_tests.py
   - It contains basic tests for some of the things I already have. More specifically, it tests the creation of class instances and the number of items in the conferences and teams lists.
-- all_conf.csv
+- ** all_conf.csv
   - File created from data_scraping.py. All conferences.
-- overall_ranks.csv
+- ** overall_ranks.csv
   - File created from data_scraping.py. All teams.
-- all_teams.csv
+- ** all_teams.csv
   - File created from data_scraping.py. This is a third file I created but not very likely I will use it.
-- cfb_cache.json
+- ** cfb_cache.json
   - Cached data from the website.
-- README.md
-- data_base_diagram.PNG
+- ** README.md
+- ** data_base_diagram.PNG
   - The intended data base tables I will create.
 
 
@@ -50,7 +50,7 @@ I will generate graphics for the Top 25 teams and present them in a web applicat
 1. Make sure the files advanced_expiry_caching.py and data_scraping.py are in the same folder.
 2. From Git Bash run: python data_scraping.py. This will create a JSON file with all the data scraped from the web three CSV files.
 3. Run SI507project_tests.py to execute the tasks in SI507project_tools.py and test whether they pass the test.
-4. 
+4.
 
 
 
