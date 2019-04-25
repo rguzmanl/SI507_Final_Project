@@ -71,7 +71,7 @@ By running the program, six different routes are generated, which display differ
   - You can also go to the tables directly by typing this in your browser: ht<span>tp</span>://127.0.0.1:5000/all_teams, or ht<span>tp</span>://127.0.0.1:5000/all_confs
 3. You can also retrieve either one single conference or team by typing this into your browser: ht<span>tp</span>://127.0.0.1:5000/a_team/<enter a team name here>, or ht<span>tp</span>://127.0.0.1:5000/a_conf/<enter a conference name here>
   - **NOTE: details about exact spelling of team and conferences below.**
-4. The final option is to retrieve all the teams within a conference by typing this: http<i><i>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
+4. The final option is to retrieve all the teams within a conference by typing this: ht<span>tp</span>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 
 
 ## Examples of what to enter in the browser. You can just copy and paste this.
