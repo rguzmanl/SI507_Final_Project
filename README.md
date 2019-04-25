@@ -98,12 +98,25 @@ ht<span>tp</span>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 |Mid-American Conference   |North Texas        |
 
 
-## What you can expect to see
+## What you can expect to see:
 
-Homepage:
+**Homepage:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/home.png)
 
+**A conference**
+![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/a_conf.png)
 
+**A team**
+![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/a_team.png)
+
+**All conferences**
+![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/all_confs.png)
+
+**All teams**
+![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/all_teams.png)
+
+**Teams per conference**
+![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/teams_in_conf.png)
 
 
 ##
