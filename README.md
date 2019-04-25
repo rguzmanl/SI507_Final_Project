@@ -76,17 +76,17 @@ By running the program, six different routes are generated, which display differ
 
 ## Examples of what to enter in the browser. You can just copy and paste this.
 
-- http<i><i>://127.0.0.1:5000/a_team/Michigan
-- http<i><i>://127.0.0.1:5000/a_conf/Big Ten Conference
-- http<i><i>://127.0.0.1:5000/teams_in_conf/Big Ten Conference
+- http://127.0.0.1:5000/a_team/Michigan
+- http://127.0.0.1:5000/a_conf/Big Ten Conference
+- http://127.0.0.1:5000/teams_in_conf/Big Ten Conference
 
 ## More options of teams and conferences names:
 
 *There is no relationship necessarily between the teams and conferences in this table, it is just for you to copy and paste different names in order to avoid typos.*
 
-http<i><i>://127.0.0.1:5000/a_team/<enter a team name here>
-http<i><i>://127.0.0.1:5000/a_conf/<enter a conference name here>
-http<i><i>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
+http://127.0.0.1:5000/a_team/<enter a team name here>
+http://127.0.0.1:5000/a_conf/<enter a conference name here>
+http://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 
 |Conferences               |Teams              |
 |--------------------------|:-----------------:|
