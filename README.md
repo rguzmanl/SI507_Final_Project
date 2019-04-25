@@ -101,7 +101,7 @@ http<i><i>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 ## What you can expect to see
 
 Homepage:
-(https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/home.png)
+![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/home.png)
 
 
 
