@@ -81,7 +81,12 @@ By running the program, six different routes are generated, which display differ
 - http<i><i>://127.0.0.1:5000/teams_in_conf/Big Ten Conference
 
 ## More options of teams and conferences names:
-*There is no relationship between the teams and conferences in this table, it is just for you to copy and paste different names in order to avoid typos.*
+
+*There is no relationship necessarily between the teams and conferences in this table, it is just for you to copy and paste different names in order to avoid typos.*
+
+http<i><i>://127.0.0.1:5000/a_team/<enter a team name here>
+http<i><i>://127.0.0.1:5000/a_conf/<enter a conference name here>
+http<i><i>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 
 |Conferences               |Teams              |
 |--------------------------|:-----------------:|
@@ -93,8 +98,10 @@ By running the program, six different routes are generated, which display differ
 |Mid-American Conference   |North Texas        |
 
 
+## What you can expect to see
 
-
+Homepage:
+(https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/home.png)
 
 
 
