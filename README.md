@@ -59,18 +59,38 @@ By running the program, six different routes are generated, which display differ
 ## How to run the program.
 1. Make sure all the files are in the same folder.
   - **NOTE:** For testing purposes you can/should delete (or save in a separate folder) the provided files: cfb_cache.json, all_conf.csv, all_teams.csv, and cfb_data.db. Which will be generated when the program is run.
-2. From Git Bash run: python data_scraping.py. This will create a JSON file with all the data scraped from the web three CSV files.
+2. From Git Bash run: python data_scraping.py. This will create a CACHED JSON file and from this file it will generate the two CSV files that will used to create the database later.
 3. Run SI507project_tests.py to test whether the CACHE and CSV files were created correctly.
 4. Run SI507project_tools.py to generate and populate the database. Also, this code will activate the Flask app that will allow us to present the data in the web browser.
 
 
 
 ## How to interact with the application.
-1. When you run the program, you will see this http<i><i>://127.0.0.1:5000/
+1. When you run the program, you will see this http<i><i>://127.0.0.1:5000/. Copy/paste it into your browser to go to the home page.
+2. The home page has a welcome message and a couple of buttons(links) to the two whole tables.
+  - You can also go to the tables directly by typing this in your browser: http<i><i>://127.0.0.1:5000/all_teams, or http<i><i>://127.0.0.1:5000/all_confs
+3. You can also retrieve either one single conference or team by typing this into your browser: http<i><i>://127.0.0.1:5000/a_team/<enter a team name here>, or http<i><i>://127.0.0.1:5000/a_conf/<enter a conference name here>
+  - **NOTE: details about exact spelling of team and conferences below.**
+4. The final option is to retrieve all the teams within a conference by typing this: http<i><i>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 
 
+## Examples of what to enter in the browser. You can just copy and paste this.
 
+- http<i><i>://127.0.0.1:5000/a_team/Michigan
+- http<i><i>://127.0.0.1:5000/a_conf/Big Ten Conference
+- http<i><i>://127.0.0.1:5000/teams_in_conf/Big Ten Conference
 
+## More options of teams and conferences names:
+*There is no relationship between the teams and conferences in this table, it is just for you to copy and paste different names in order to avoid typos.*
+
+|Conferences               |Teams              |
+|--------------------------|:-----------------:|
+|Big 12 Conference         |Texas              |
+|Southeastern Conference   |Washington         |
+|Atlantic Coast Conference |Colorado           |
+|Independent               |UCLA               |
+|Mountain West Conference  |Georgia Tech       |
+|Mid-American Conference   |North Texas        |
 
 
 
