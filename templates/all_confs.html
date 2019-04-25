@@ -1,0 +1,14 @@
+<div class="redirect">
+  <a href="{{ url_for('index')}}">Return to home page</a>
+</div>
+
+
+<ul>
+{% for cf in all_confs %}
+<li>{{cf[0]}}, Num. of Schools: {{cf[1]}}, Games: {{cf[2]}}, W: {{cf[3]}}, L: {{cf[4]}}, Pct: {{cf[5]}}, Ranking: {{cf[6]}}</li><br>
+{% endfor %}
+</ul>
+
+{% if not all_confs %}
+Something.
+{% endif %}

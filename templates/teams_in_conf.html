@@ -1,0 +1,13 @@
+
+<h1>{{conf_name}}</h1>
+
+<div class="redirect">
+  <a href="{{ url_for('index')}}">Return to home page</a>
+</div>
+
+
+<ul>
+{% for t in conf_teams %}
+<li>School: {{t[0]}}, W: {{t[1]}}, L: {{t[2]}}, Pct: {{t[3]}}, National Ranking:{{t[4]}}</li><br>
+{% endfor %}
+</ul>

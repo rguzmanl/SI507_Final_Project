@@ -41,6 +41,8 @@ These are the files that I have used/created so far.
   - It contains all the information of the modules and libraries used in this project.
 - **/templates**
   - This folder contains several html files that provide basic templating to the web pages.
+- **/result_imgs**
+  - Screenshots of the program running (added into the README file).
 
 
 
@@ -103,19 +105,19 @@ ht<span>tp</span>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 **Homepage:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/home.png)
 
-**A conference**
+**A conference:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/a_conf.png)
 
-**A team**
+**A team:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/a_team.png)
 
-**All conferences**
+**All conferences:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/all_confs.png)
 
-**All teams**
+**All teams:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/all_teams.png)
 
-**Teams per conference**
+**Teams per conference:**
 ![alt text](https://github.com/rguzmanl/SI507_Final_Project/blob/master/result_imgs/teams_in_conf.png)
 
 

@@ -1,113 +1,116 @@
-
-import requests, json, csv
-from flask import Flask
-from data_scraping import *
-import random
-from random import sample
+import csv
+from flask import Flask, render_template, session, redirect, url_for
+from model_classes_final import *
 
 
+#################################################################################
 
 
 
-## TESTS TO CREATE INSTANCES OF CLASSES "Team" and "Conference"
-## WITH THESE I CAN CREATE TWO ROUTES WITH ALL DATA PER CLASS.
-##############################################################
-
-class Team:
-
-    # I think instead of just a name ('str') as argument, I will enter a list ('row') whose items will be the data cells for each team. From there I will pick some specific cells to form an instance of Team.
-    def __init__(self, name, conf):
-        self.name = name
-        self.conf = conf
-        # add more instances variables
-
-    def __str__(self):
-        return "{} is an instance of the class Team and it is in conference {}".format(self.name, self.conf)
-
-
-a_team = Team('"Michigan"', '"Big 10"')
-# print(a_team)
-# print(type(a_team))
-
-
-
-class Conference:
-
-    def __init__(self, name):
-        self.name = name
-        # add more instances variables
-
-    def __str__(self):
-        return "{} is an instance of the class Conference".format(self.name)
-
-a_conf = Conference('"Big 10"')
-# print(a_conf)
-
-
-#############################################################
-
-
-## FLASK ROUTES HERE:
-## I STILL NEED TO DEFINE WHAT EXACTLY I WANT TO DISPLAY AND IF THERE WILL BE ANY KIND OF USER INTERACTION.
-#############################################################
-app = Flask(__name__)
-
-## WELCOME PAGE
 @app.route('/')
-def home():
-    return '<h1>Welcome to the College Foot Ball 2018 Statistics</h1>'
-
-
-## ALL CONFERENCES (11 CONFERENCES) AND STATS PER CONFERENCE.
-@app_route('/all_conferences')
-def all_confs():
-    "RETRIEVE ALL DATA CORRESPONING TO CONFERENCES FROM data_scraping.py"
-    'list_of_rows = []'
-    return 'TABLE FOR ALL CONFERENCES = all_conf.csv'
-
-
-## ALL TEAMS (130 TEAMS) AND STATS PER TEAM.
-@app_route('/all_teams')
-def all_teams():
-    "RETRIEVE ALL DATA CORRESPONING TO TEAMS FROM data_scraping.py"
-    'final_rows = []'
-    return 'TABLE FOR ALL CONFERENCES = overall_ranks.csv'
-
-
-## ONE TEAM, MAY BE WITH USER INPUT BUT IT'LL NEED EXACT SPELLING I GUESS.
-@app_route('/which_team/<team>')
-def a_team():
-    "WILL RETRIEVE A TEAM FROM data_scraping.py"
-    'final_rows = []'
-    return 'ONE PAGE WITH DATA FOR ONE SPECIFIC TEAM'
-
-
-## ONE CONFERENCE, MAY BE WITH USER INPUT BUT IT'LL NEED EXACT SPELLING I GUESS.
-@app_route('/which_conf/<conf>')
-def a_conf():
-    "WILL RETRIEVE A TEAM FROM data_scraping.py"
-    'list_of_rows = []'
-    return 'ONE PAGE WITH DATA FOR ONE SPECIFIC CONFERENCE'
-
-
-## A ROUTE THAT SHOWS ONLY THE ASSOCIATED PRESS TOP 25 RANKED TEAMS.
-@app_route('/which_conf/<conf>')
-def top_25():
-    "WILL SORT DATA USING THE AP_RANKS FROM data_scraping.csv"
-    'final_rows = []'
-    return 'ONE PAGE WITH A TABLE FOR THE TOP 25'
-
-
-## AFTER THIS I'D LIKE TO USE plotly or matplotlib TO GENERATE SOME GRAPHS FROM OF THE DATA
-## I WILL ADD AT LEAST ONE MORE ROUTE WITH THE GRAPH
-#############################################################
-@app.route('/graphs_top_25'):
-def graph():
-    return 'SOME GRAPH'
+def index():
+    # conferences = Conference.query.all()
+    # num_conferences = len(conferences)
+    # x = Team.query.first()
+    return render_template('index.html')
 
 
 
+@app.route('/all_confs')
+def see_confs():
+    all_confs = []
+    conferences = Conference.query.all()
+    for c in conferences:
+        all_confs.append((c.ConfName, c.NumSchools, c.G, c.W, c.L, c.Pct, c.Rk))
+    return render_template('all_confs.html',all_confs=all_confs)
 
 
 
-###
+@app.route('/all_teams')
+def see_teams():
+    all_teams = []
+    teams = Team.query.all()
+    for t in teams:
+        all_teams.append((t.school_name, t.conf_name, t.W, t.L, t.Pct, t.Rk, t.conf_id))
+    return render_template('all_teams.html',all_teams=all_teams)
+
+
+
+@app.route('/a_team/<team>')
+def find_team(team):
+    q = Team.query.filter_by(school_name=team).first()
+    a_team = (q.school_name, q.conf_name, q.W, q.L, q.Pct, q.Rk, q.conf_id)
+    return render_template('a_team.html',a_team=a_team)
+
+
+
+@app.route('/a_conf/<conf>')
+def find_conf(conf):
+    q = Conference.query.filter_by(ConfName=conf).first()
+    a_conf = (q.ConfName, q.NumSchools, q.G, q.W, q.L, q.Pct, q.Rk )
+    return render_template('a_conf.html', a_conf=a_conf)
+
+
+
+@app.route('/teams_in_conf/<conf>')
+def teams_in_conf(conf):
+    qc = Conference.query.filter_by(ConfName=conf).first()
+    a_conf = ((qc.ConfName, qc.id))
+    teams = Team.query.all()
+    conf_teams = []
+    for t in teams:
+        if t.conf_id == qc.id:
+            conf_teams.append((t.school_name, t.W, t.L, t.Pct, t.Rk))
+    return render_template('teams_in_conf.html', conf_teams=conf_teams, conf_name = a_conf[0] )
+
+
+
+
+
+############################################################################
+## PUT THE POPULATING CODE BELOW HERE
+############################################################################
+"""I NEED TO CREATE TWO FUNCTIONS THAT RUN CODE TO POPULATE MY DB"""
+## SOMETHING INTERESTING HAPPENED. I HAD THIS FOR LOOP BELOW THE __main__.
+## THEN, I RAN THE CODE AND IT CREATED THE TABLES BUT NO INFO WAS SAVED INTO THE DB.
+## WHILE THE PROGRAM WAS RUNNING I CUT/COPY THE CSV FILE LOOP ABOVE THE __main__ AND IT EXECUTED THE LOOP ONCE AND POPULATED THE DB SUCCESSFULLY.
+def populate_conferences():
+    with open('all_conf.csv', 'r', encoding='utf8') as csv_file:
+        conf_lines = csv.reader(csv_file, delimiter=',')
+        header = next(conf_lines, None)
+
+        for cf in conf_lines:
+            # print(cf)
+            conf_inst = Conference(ConfName=cf[1], NumSchools=cf[2], G=cf[3], W=cf[4], L=cf[5], Pct=cf[6], Rk=cf[0])
+            session.add(conf_inst)
+            session.commit()
+## BEFORE WHEN THIS CHUNK OF CODE WAS IN THE MODELS FILE. IT WOULD POPULATE THE DB TWICE EVERYTIME I RAN THE THE FLAS APP.
+## I THINK I NEED TO FIND A WAY TO EXECUTE THE CSV WITHIN A FUNCTION.
+
+
+def populate_teams():
+    with open('overall_ranks.csv', 'r', encoding='utf8') as csv_file:
+        team_lines = csv.reader(csv_file, delimiter=',')
+        header = next(team_lines, None)
+
+        for t in team_lines:
+            q_conf = Conference.query.filter_by(ConfName=t[2]).first()
+            a_conf_id = q_conf.id
+            team_inst = Team(school_name=t[1], conf_name=t[2], conf_id=a_conf_id,  W=t[4], L=t[5], Pct=t[6], Rk=t[0])
+            session.add(team_inst)
+            session.commit()
+
+
+# conf_id = session.query(Conference.Id).filter(Conference.ConfName.like(conf_var))
+
+#################################################################################
+
+if __name__ == '__main__':
+    db.drop_all()
+    db.create_all() # This will create database in current directory, as set up, if it doesn't exist, but won't overwrite if you restart - so no worries about that
+    populate_conferences()
+    populate_teams()
+    app.run() # run with this: python main_app.py runserver
+
+
+#################################################################################
