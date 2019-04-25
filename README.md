@@ -66,27 +66,27 @@ By running the program, six different routes are generated, which display differ
 
 
 ## How to interact with the application.
-1. When you run the program, you will see this http<i><i>://127.0.0.1:5000/. Copy/paste it into your browser to go to the home page.
+1. When you run the program, you will see this ht<span>tp</span>://127.0.0.1:5000/. Copy/paste it into your browser to go to the home page.
 2. The home page has a welcome message and a couple of buttons(links) to the two whole tables.
-  - You can also go to the tables directly by typing this in your browser: http<i><i>://127.0.0.1:5000/all_teams, or http<i><i>://127.0.0.1:5000/all_confs
-3. You can also retrieve either one single conference or team by typing this into your browser: http<i><i>://127.0.0.1:5000/a_team/<enter a team name here>, or http<i><i>://127.0.0.1:5000/a_conf/<enter a conference name here>
+  - You can also go to the tables directly by typing this in your browser: ht<span>tp</span>://127.0.0.1:5000/all_teams, or ht<span>tp</span>://127.0.0.1:5000/all_confs
+3. You can also retrieve either one single conference or team by typing this into your browser: ht<span>tp</span>://127.0.0.1:5000/a_team/<enter a team name here>, or ht<span>tp</span>://127.0.0.1:5000/a_conf/<enter a conference name here>
   - **NOTE: details about exact spelling of team and conferences below.**
 4. The final option is to retrieve all the teams within a conference by typing this: http<i><i>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 
 
 ## Examples of what to enter in the browser. You can just copy and paste this.
 
-- http://127.0.0.1:5000/a_team/Michigan
-- http://127.0.0.1:5000/a_conf/Big Ten Conference
-- http://127.0.0.1:5000/teams_in_conf/Big Ten Conference
+- ht<span>tp</span>://127.0.0.1:5000/Michigan
+- ht<span>tp</span>://127.0.0.1:5000/Big Ten Conference
+- ht<span>tp</span>://127.0.0.1:5000/Big Ten Conference
 
 ## More options of teams and conferences names:
 
 *There is no relationship necessarily between the teams and conferences in this table, it is just for you to copy and paste different names in order to avoid typos.*
 
-http://127.0.0.1:5000/a_team/<enter a team name here>
-http://127.0.0.1:5000/a_conf/<enter a conference name here>
-http://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
+ht<span>tp</span>://127.0.0.1:5000/a_team/<enter a team name here>
+ht<span>tp</span>://127.0.0.1:5000/a_conf/<enter a conference name here>
+ht<span>tp</span>://127.0.0.1:5000/teams_in_conf/<enter a conference name here>
 
 |Conferences               |Teams              |
 |--------------------------|:-----------------:|
