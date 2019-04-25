@@ -4,10 +4,49 @@
 <div class="redirect">
   <a href="{{ url_for('index')}}">Return to home page</a>
 </div>
+<br>
+<br>
 
-
-<ul>
+<!-- <ul>
 {% for t in conf_teams %}
 <li>School: {{t[0]}}, W: {{t[1]}}, L: {{t[2]}}, Pct: {{t[3]}}, National Ranking:{{t[4]}}</li><br>
 {% endfor %}
 </ul>
+ -->
+
+
+<style>
+
+    table, th, td {
+      width: 65%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    
+</style>
+    
+    
+    
+    
+<table class="teams_tab">
+  
+  <tr>
+    <th>School</th>
+    <th>Conference</th> 
+    <th>W</th>
+    <th>L</th>
+    <th>Pct</th>
+    <th>Ranking</th>
+  </tr>
+  {% for t in conf_teams %}
+  <tr>
+    <td>{{t[0]}}</td>
+    <td>{{t[1]}}</td> 
+    <td>{{t[2]}}</td>
+    <td>{{t[3]}}</td>
+    <td>{{t[4]}}</td>
+    <td>{{t[5]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+

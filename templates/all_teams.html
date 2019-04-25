@@ -2,9 +2,10 @@
 <div class="redirect">
   <a href="{{ url_for('index')}}">Return to home page</a>
 </div>
+<br>
+<br>
 
-
-<ul>
+<!-- <ul>
 {% for t in all_teams %}
 <li>School: {{t[0]}}, Conference: {{t[1]}}, W: {{t[2]}}, {{t[3]}}, L: {{t[4]}}, Pct: {{t[5]}}, Ranking: {{t[6]}}</li><br>
 {% endfor %}
@@ -12,4 +13,41 @@
 
 {% if not all_teams %}
 Something.
-{% endif %}
+{% endif %} -->
+
+<style>
+
+  table, th, td {
+    width: 65%;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  
+  
+  
+</style>
+  
+  
+
+  
+<table class="teams_tab">
+  
+  <tr>
+    <th>School</th>
+    <th>Conference</th> 
+    <th>W</th>
+    <th>L</th>
+    <th>Pct</th>
+    <th>Ranking</th>
+  </tr>
+  {% for t in all_teams %}
+  <tr>
+    <td>{{t[0]}}</td>
+    <td>{{t[1]}}</td> 
+    <td>{{t[2]}}</td>
+    <td>{{t[3]}}</td>
+    <td>{{t[4]}}</td>
+    <td>{{t[5]}}</td>
+  </tr>
+  {% endfor %}
+</table>

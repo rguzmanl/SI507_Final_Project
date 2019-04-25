@@ -1,7 +1,47 @@
 <div class="redirect">
   <a href="{{ url_for('index')}}">Return to home page</a>
 </div>
+<br>
+<br>
 
 
+<!-- <p class="a_conf">Name: {{a_conf[0]}}, Num. of Schools: {{a_conf[1]}}, Games: {{a_conf[2]}}, W: {{a_conf[3]}}, L: {{a_conf[4]}}, Pct: {{a_conf[5]}}, Conf Rank: {{a_conf[6]}}</p> -->
 
-<p class="a_conf">Name: {{a_conf[0]}}, Num. of Schools: {{a_conf[1]}}, Games: {{a_conf[2]}}, W: {{a_conf[3]}}, L: {{a_conf[4]}}, Pct: {{a_conf[5]}}, Conf Rank: {{a_conf[6]}}</p>
+<style>
+
+    table, th, td {
+      width: 65%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    
+    
+    
+</style>
+    
+    
+    
+    
+<table class="conferences_tab">
+
+    <tr>
+      <th>Name</th>
+      <th>Num. Schools</th> 
+      <th>G</th>
+      <th>W</th>
+      <th>L</th>
+      <th>Pct</th>
+      <th>Ranking</th>
+    </tr>
+  
+    <tr>
+      <td>{{a_conf[0]}}</td>
+      <td>{{a_conf[1]}}</td> 
+      <td>{{a_conf[2]}}</td>
+      <td>{{a_conf[3]}}</td>
+      <td>{{a_conf[4]}}</td>
+      <td>{{a_conf[5]}}</td>
+      <td>{{a_conf[6]}}</td>
+    </tr>
+  
+  </table>

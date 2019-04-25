@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from decimal import Decimal
 from bs4 import BeautifulSoup
 import requests, json, csv
 from advanced_expiry_caching import Cache
@@ -73,77 +73,11 @@ with open('all_conf.csv', 'w', newline = '') as csv_file:
 ###########################################################################################################
 
 
-###########################################################################################################
-## MAKING REQUESTS TO EACH CONFERENCE LINK
-# I WILL KEEP THIS CODE IN CASE THERE IS AN EASY WAY TO RETRIEVE DATA PER CONFERNCE TABLE
-
-## GIVES ME THE LINK PER CONFERENCE
-conf_links = table_confs.find_all('a')
-
-
-links_to_confs = []
-for each_conf in conf_links:
-    conf_url = URL_into_conf + each_conf['href']
-    links_to_confs.append(conf_url)
-
-per_conf_list = []
-for c_link in links_to_confs:
-
-    access_to_conf = access_page_data(c_link)
-    conf_soup = BeautifulSoup(access_to_conf, features="html.parser")
-    per_conf = conf_soup.find('div',{'id':"all_standings"})
-    per_conf_table = per_conf.find_all('tbody')
-    conf_tr = per_conf_table[0].find_all('tr')
-    per_conf_list.append(conf_tr)
-
-with open('all_teams.csv', 'w', newline = '') as csv_file:
-    row_input = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    row_input.writerow(['East','W', 'L', 'Pct', 'W', 'L', 'Pct','Off', 'Def', 'SRS','SOS', 'Rk AP Curr', 'Rk AP Pre', 'Rk AP High', 'Notes'])
-
-    all_teams = []
-    for t_row in per_conf_list:
-        for t in t_row:
-            lst_of_teams_conf =[]
-            for d_conf in t.find_all(["th","td"]):
-                text_conf = d_conf.get_text()
-                lst_of_teams_conf.append(text_conf)
-            if lst_of_teams_conf[1] != 'W':
-                all_teams.append(lst_of_teams_conf)
-
-    ####################################
-    # I WILL NOT USE THESE DATA PROBABLY
-    ####################################
-    for l in all_teams:
-
-        zone = l[0]
-        ov_wins = l[1]
-        ov_loss = l[2]
-        ov_pct = l[3]
-        cf_wins = l[4]
-        cf_loss = l[5]
-        cf_pct = l[6]
-        pt_game_off = l[7]
-        pt_game_def = l[8]
-        srs = l[9]
-        sos = l[10]
-        ap_curr = l[11]
-        ap_pre = l[12]
-        ap_high = l[13]
-        notes = l[14]
-
-        row_input.writerow([zone, ov_wins, ov_loss, ov_pct, cf_wins, cf_loss, cf_pct, pt_game_off, pt_game_def, srs, sos, ap_curr, ap_pre, ap_high, notes])
-
-# AT THIS POINT I HAVE EACH CONFERENCE AS AN ELEMENT IN A per_conf_list OF BS OBJECTS.
-# I THINK I NEED TO DEFINE A FUNCTION SO I CAN CREATE DIFFERENT CSV FILES PER CONFERENCE TABLE.
-# def create_a_csv_file():
-
-
-###########################################################################################################
 
 # MY NEXT STEP IS TO RETRIEVE THE OVERALL DATA/RANKS AND STATS FROM:
 # https://www.sports-reference.com/cfb/years/2018-ratings.html
-# AND MAY BE USE THAT DATA INSTEAD OF THE CHUNK OF CODE ABOVE
-
+# AND MAY BE USE THAT DATA INSTEAD OF all_teams.csv CREATED IN THE COMMENTED OUT CODE BELOW IN THIS FILE
+# ALSO THIS CODE DOES A COUPLE OF "SPECIAL" THINGS. WHICH ARE, A DICTIONARY TO TRANSLATE CONFERENCES NAMES (EXPLAINED BELOW), AND IT ALSO CALCULATES A PERCENTAGE OF WIN/LOST GAMES.
 ###########################################################################################################
 
 # IN THE FOLLOWING CHUNK OF CODE I'LL GET THE DATA FROM THE OVERALL RANKINGS
@@ -157,14 +91,14 @@ find_tr_overall = overall_table[0].find_all('tr')
 
 with open('overall_ranks.csv', 'w', newline = '') as csv_file:
     row_input = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    row_input.writerow(['Rk','School', 'Conf', 'AP Rank', 'W', 'L', 'OSRS','DSRS', 'SRS', 'Score Off', 'Score Deff', 'Pass Off', 'Pass Def', 'Rush Off', 'Rush Def', 'Tot Off', 'Tot Def'])
+    row_input.writerow(['Rk','School', 'Conf', 'AP Rank', 'W', 'L', 'Pct', 'OSRS','DSRS', 'SRS', 'Score Off', 'Score Deff', 'Pass Off', 'Pass Def', 'Rush Off', 'Rush Def', 'Tot Off', 'Tot Def'])
 
 
     final_rows = []
     valid_rows = []
     rows_teams = []
 
-    ## ALL THESE CRAZY FOR LOOPS JUST TO CLEANED UNDESIRED DATA.
+    ## ALL THESE CRAZY FOR LOOPS JUST TO CLEAN UNDESIRED DATA.
     ## THERE WERE SOME HIDDEN HTML ELEMENTS THAT CAUSED A LOT OF TROUBLE
     for team_row in find_tr_overall:
 
@@ -183,15 +117,44 @@ with open('overall_ranks.csv', 'w', newline = '') as csv_file:
             final_rows.append(e)
 
 
-    # print(len(final_rows))
+    #THIS DICTIONARY HELPS ME TRANSLATE FROM ABREVIATED CONFERENCES TO COMPLETE NAME.
+    #IT IGNORES SUBDIVISIONS. e.g. EAST, WEST, ETC.
+    #THE GOAL OF THIS IS TO HAVE THE EXACT SAME STRING FOR CONFERENCE NAMES IN BOTH TABLES.
+    confs_dict = {
+
+        'ACC (Atlantic)': 'Atlantic Coast Conference',
+        'ACC (Coastal)': 'Atlantic Coast Conference',
+        'American (East)': 'American Athletic Conference',
+        'American (West)': 'American Athletic Conference',
+        'Big 12': 'Big 12 Conference',
+        'Big Ten (East)': 'Big Ten Conference',
+        'Big Ten (West)': 'Big Ten Conference',
+        'CUSA (East)': 'Conference USA',
+        'CUSA (West)': 'Conference USA',
+        'Ind': 'Independent',
+        'MAC (East)': 'Mid-American Conference',
+        'MAC (West)': 'Mid-American Conference',
+        'MWC (Mountain)': 'Mountain West Conference',
+        'MWC (West)': 'Mountain West Conference',
+        'Pac-12 (North)': 'Pacific-12 Conference',
+        'Pac-12 (South)': 'Pacific-12 Conference',
+        'SEC (East)': 'Southeastern Conference',
+        'SEC (West)': 'Southeastern Conference',
+        'Sun Belt (East)': 'Sun Belt Conference',
+        'Sun Belt (West)': 'Sun Belt Conference',
+
+    }
+
     for all in final_rows:
 
         rk = all[0]
         sch = all[1]
-        conf = all[2]
+        if all[2] in confs_dict.keys(): #THIS IS TO REPLACE THE ABBREVIATED CONF FOR THE COMPLETE NAMES.
+            conf = confs_dict[all[2]]
         ap_rank = all[3]
         wins = all[4]
         loss = all[5]
+        pct = round((int(wins)/(int(wins)+int(loss))),3) #I DID ALL THIS TRICKERY BECAUSE IT WOULD HAVE BEEN VIRTUALLY IMPOSSIBLE TO INSERT THE CORRESPONDGING COLUMN FROM all_teams.csv. SO, I CALCULATED THE PERCENTAGE MYSELF. =)
         osrs = all[6]
         dsrs = all[7]
         srs = all[8]
@@ -204,12 +167,81 @@ with open('overall_ranks.csv', 'w', newline = '') as csv_file:
         tot_off = all[15]
         tot_def = all[16]
 
-        row_input.writerow([rk, sch, conf, ap_rank, wins, loss, osrs, dsrs, srs, sc_off, sc_def, pass_off, pass_def, rush_off, rush_def, tot_off, tot_def])
+        row_input.writerow([rk, sch, conf, ap_rank, wins, loss, pct, osrs, dsrs, srs, sc_off, sc_def, pass_off, pass_def, rush_off, rush_def, tot_off, tot_def])
 
 
+###########################################################################################################
 
-##############################
+
 
 
 print('\n')
 ###
+
+
+###########################################################################################################
+## MAKING REQUESTS TO EACH CONFERENCE LINK
+# I WILL KEEP THIS CODE IN CASE THERE IS AN EASY WAY TO RETRIEVE DATA PER CONFERNCE TABLE
+
+## GIVES ME THE LINK PER CONFERENCE
+# conf_links = table_confs.find_all('a')
+#
+#
+# links_to_confs = []
+# for each_conf in conf_links:
+#     conf_url = URL_into_conf + each_conf['href']
+#     links_to_confs.append(conf_url)
+#
+# per_conf_list = []
+# for c_link in links_to_confs:
+#
+#     access_to_conf = access_page_data(c_link)
+#     conf_soup = BeautifulSoup(access_to_conf, features="html.parser")
+#     per_conf = conf_soup.find('div',{'id':"all_standings"})
+#     per_conf_table = per_conf.find_all('tbody')
+#     conf_tr = per_conf_table[0].find_all('tr')
+#     per_conf_list.append(conf_tr)
+#
+# with open('all_teams.csv', 'w', newline = '') as csv_file:
+#     row_input = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+#     row_input.writerow(['Team','W', 'L', 'Pct', 'W', 'L', 'Pct','Off', 'Def', 'SRS','SOS', 'Rk AP Curr', 'Rk AP Pre', 'Rk AP High', 'Notes'])
+#
+#     all_teams = []
+#     for t_row in per_conf_list:
+#         for t in t_row:
+#             lst_of_teams_conf =[]
+#             for d_conf in t.find_all(["tr","th","td"]):
+#                 text_conf = d_conf.get_text()
+#                 lst_of_teams_conf.append(text_conf)
+#             if lst_of_teams_conf[1] != 'W':
+#                 all_teams.append(lst_of_teams_conf)
+#
+#     ####################################
+#     # I WILL NOT USE THESE DATA PROBABLY
+#     ####################################
+#     for l in all_teams:
+#
+#         zone = l[0]
+#         ov_wins = l[1]
+#         ov_loss = l[2]
+#         ov_pct = l[3]
+#         cf_wins = l[4]
+#         cf_loss = l[5]
+#         cf_pct = l[6]
+#         pt_game_off = l[7]
+#         pt_game_def = l[8]
+#         srs = l[9]
+#         sos = l[10]
+#         ap_curr = l[11]
+#         ap_pre = l[12]
+#         ap_high = l[13]
+#         notes = l[14]
+#
+#         row_input.writerow([zone, ov_wins, ov_loss, ov_pct, cf_wins, cf_loss, cf_pct, pt_game_off, pt_game_def, srs, sos, ap_curr, ap_pre, ap_high, notes])
+
+# AT THIS POINT I HAVE EACH CONFERENCE AS AN ELEMENT IN A per_conf_list OF BS OBJECTS.
+# I THINK I NEED TO DEFINE A FUNCTION SO I CAN CREATE DIFFERENT CSV FILES PER CONFERENCE TABLE.
+# def create_a_csv_file():
+
+
+###########################################################################################################

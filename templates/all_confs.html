@@ -2,8 +2,9 @@
   <a href="{{ url_for('index')}}">Return to home page</a>
 </div>
 
-
-<ul>
+<br>
+<br>
+<!-- <ul>
 {% for cf in all_confs %}
 <li>{{cf[0]}}, Num. of Schools: {{cf[1]}}, Games: {{cf[2]}}, W: {{cf[3]}}, L: {{cf[4]}}, Pct: {{cf[5]}}, Ranking: {{cf[6]}}</li><br>
 {% endfor %}
@@ -11,4 +12,46 @@
 
 {% if not all_confs %}
 Something.
-{% endif %}
+{% endif %} -->
+
+
+
+<style>
+
+table, th, td {
+  width: 65%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+
+</style>
+
+
+
+
+
+<table class="conferences_tab">
+  
+  <tr>
+    <th>Name</th>
+    <th>Num. Schools</th> 
+    <th>G</th>
+    <th>W</th>
+    <th>L</th>
+    <th>Pct</th>
+    <th>Ranking</th>
+  </tr>
+  {% for cf in all_confs %}
+  <tr>
+    <td>{{cf[0]}}</td>
+    <td>{{cf[1]}}</td> 
+    <td>{{cf[2]}}</td>
+    <td>{{cf[3]}}</td>
+    <td>{{cf[4]}}</td>
+    <td>{{cf[5]}}</td>
+    <td>{{cf[6]}}</td>
+  </tr>
+  {% endfor %}
+</table>

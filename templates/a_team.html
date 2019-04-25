@@ -2,6 +2,45 @@
   <a href="{{ url_for('index')}}">Return to home page</a>
 </div>
 
+<br>
+<br>
+
+<!-- <p class="a_team">School: {{a_team[0]}}, Conference: {{a_team[1]}}, W: {{a_team[2]}}, L: {{a_team[3]}}, Pct: {{a_team[4]}}, Overall ranking: {{a_team[5]}}</p> -->
 
 
-<p class="a_team">School: {{a_team[0]}}, Conference: {{a_team[1]}}, W: {{a_team[2]}}, L: {{a_team[3]}}, Pct: {{a_team[4]}}, Overall ranking: {{a_team[5]}}</p>
+
+<style>
+
+    table, th, td {
+      width: 65%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    
+    
+  </style>
+    
+    
+  
+    
+  <table class="teams_tab">
+    
+    <tr>
+      <th>School</th>
+      <th>Conference</th> 
+      <th>W</th>
+      <th>L</th>
+      <th>Pct</th>
+      <th>Ranking</th>
+    </tr>
+
+    <tr>
+      <td>{{a_team[0]}}</td>
+      <td>{{a_team[1]}}</td> 
+      <td>{{a_team[2]}}</td>
+      <td>{{a_team[3]}}</td>
+      <td>{{a_team[4]}}</td>
+      <td>{{a_team[5]}}</td>
+    </tr>
+  
+  </table>
