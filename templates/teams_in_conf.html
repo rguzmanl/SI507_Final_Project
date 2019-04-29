@@ -22,17 +22,16 @@
       border: 1px solid black;
       border-collapse: collapse;
     }
-    
+
 </style>
-    
-    
-    
-    
+
+
+
+
 <table class="teams_tab">
-  
+
   <tr>
     <th>School</th>
-    <th>Conference</th> 
     <th>W</th>
     <th>L</th>
     <th>Pct</th>
@@ -41,12 +40,12 @@
   {% for t in conf_teams %}
   <tr>
     <td>{{t[0]}}</td>
-    <td>{{t[1]}}</td> 
+    <td>{{t[1]}}</td>
     <td>{{t[2]}}</td>
     <td>{{t[3]}}</td>
     <td>{{t[4]}}</td>
-    <td>{{t[5]}}</td>
   </tr>
   {% endfor %}
 </table>
 
+<!-- checking git push -->
